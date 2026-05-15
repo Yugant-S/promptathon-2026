@@ -1,0 +1,112 @@
+{
+  "ticket_id": "TKT-CARRIER-30XA-10-202605141708-FD8CA0",
+  "unit_id": "CARRIER-30XA-10",
+  "incident_type": "THERMAL_LOW_REFRIGERANT",
+  "generated_at": "2026-05-14T17:08:23.188613",
+  "status": "OPEN",
+  "severity": "IMMINENT_FAILURE",
+  "mapped_severity": "CRITICAL",
+  "urgency": {
+    "hours": 48,
+    "display": "2 days",
+    "urgency_band": "CRITICAL",
+    "message": "Failure approaching within days. Dispatch technician immediately. Production risk if unaddressed."
+  },
+  "freeze_risk_pct": 13.38,
+  "dominant_cause": "low_refrigerant",
+  "cause_scores": {
+    "low_refrigerant": 24.1,
+    "dirty_coil": 6.29,
+    "exv_malfunction": 2.97,
+    "low_chilled_water": 3.85,
+    "condenser_issue": 0.4
+  },
+  "action_plan": [
+    "IMMEDIATE: Consider unit shutdown to prevent damage.",
+    "Connect manifold gauge set; verify suction pressure against P-T chart.",
+    "Inspect all refrigerant circuit joints and service valves for leaks.",
+    "Use electronic leak detector; confirm with UV dye if necessary.",
+    "Recover charge, evacuate to <500 microns, weigh-in factory charge."
+  ],
+  "cost_escalation": {
+    "daily_energy_excess_inr": 369.86,
+    "weekly_energy_excess_inr": 2589.0,
+    "repair_cost_now_inr": 75000,
+    "repair_cost_if_ignored_1week_inr": 135000,
+    "repair_cost_if_ignored_2weeks_inr": 240000,
+    "repair_cost_if_ignored_4weeks_inr": 420000,
+    "emergency_cost_inr": 74000,
+    "cost_per_day_delay_inr": 8941.29,
+    "source": "ASHRAE Std 180 + DOE ORNL/TM-2004/158 + Carrier India field data"
+  },
+  "sensor_snapshot": {
+    "suction_pressure_bar": 3.5106,
+    "discharge_pressure_bar": 10.9221,
+    "coil_delta_T_C": 7.913,
+    "superheat_C": 7.0537,
+    "subcooling_C": 3.795,
+    "chilled_water_flow_LPS": 53.2889,
+    "chilled_water_delta_T_C": 5.5326,
+    "blower_current_A": 13.0178,
+    "compressor_current_A": 35.1267,
+    "supply_air_temp_C": 14.1392,
+    "return_air_temp_C": 22.624,
+    "ambient_temp_C": 26.7313,
+    "compressor_runtime_pct": 68.9067
+  },
+  "z_score_snapshot": {
+    "suction_pressure_bar": 0.0,
+    "discharge_pressure_bar": 0.0,
+    "coil_delta_T_C": 0.0,
+    "superheat_C": 0.0,
+    "subcooling_C": 0.0,
+    "chilled_water_flow_LPS": 0.0,
+    "chilled_water_delta_T_C": 0.0,
+    "blower_current_A": 0.0,
+    "compressor_current_A": 0.0,
+    "supply_air_temp_C": 0.0,
+    "return_air_temp_C": 0.0,
+    "ambient_temp_C": 0.0,
+    "compressor_runtime_pct": 0.0
+  },
+  "layer1_result": {
+    "flagged_sensors": [
+      "suction_pressure_bar",
+      "discharge_pressure_bar",
+      "coil_delta_T_C",
+      "superheat_C",
+      "subcooling_C",
+      "chilled_water_flow_LPS",
+      "chilled_water_delta_T_C",
+      "blower_current_A",
+      "supply_air_temp_C",
+      "return_air_temp_C",
+      "ambient_temp_C",
+      "compressor_runtime_pct"
+    ],
+    "max_z_score": 5.5628,
+    "worst_severity": "IMMINENT_FAILURE"
+  },
+  "layer2_result": {
+    "anomaly_pct": 75.0,
+    "confirmed": true
+  },
+  "created_at": "2026-05-14T17:08:23.188613",
+  "updated_at": "2026-05-14T17:08:24.752297",
+  "last_anomaly_score": 100.0,
+  "latest_readings": {
+    "suction_pressure_bar": 2.4116,
+    "discharge_pressure_bar": 10.8421,
+    "coil_delta_T_C": 6.6658,
+    "superheat_C": 8.1204,
+    "subcooling_C": 2.2286,
+    "chilled_water_flow_LPS": 53.5142,
+    "chilled_water_delta_T_C": 5.7224,
+    "blower_current_A": 12.6725,
+    "compressor_current_A": 35.8841,
+    "supply_air_temp_C": 13.4358,
+    "return_air_temp_C": 21.4636,
+    "ambient_temp_C": 29.1908,
+    "compressor_runtime_pct": 69.2145
+  }
+}

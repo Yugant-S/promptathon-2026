@@ -1,0 +1,94 @@
+{
+  "ticket_id": "TKT-CARRIER-30XA-05-202605141708-8EB0EC",
+  "unit_id": "CARRIER-30XA-05",
+  "incident_type": "THERMAL_LOW_CHILLED_WATER",
+  "generated_at": "2026-05-14T17:08:10.827955",
+  "status": "OPEN",
+  "severity": "IMMINENT_FAILURE",
+  "mapped_severity": "CRITICAL",
+  "urgency": {
+    "hours": 48,
+    "display": "2 days",
+    "urgency_band": "CRITICAL",
+    "message": "Failure approaching within days. Dispatch technician immediately. Production risk if unaddressed."
+  },
+  "freeze_risk_pct": 8.95,
+  "dominant_cause": "low_chilled_water",
+  "cause_scores": {
+    "low_refrigerant": 0.04,
+    "dirty_coil": 4.93,
+    "exv_malfunction": 2.38,
+    "low_chilled_water": 89.69,
+    "condenser_issue": 0.53
+  },
+  "action_plan": [
+    "IMMEDIATE: Consider unit shutdown to prevent damage.",
+    "Inspect pump inlet strainer; clean if >50% blocked.",
+    "Check VFD frequency and current vs design flow rate.",
+    "Verify balancing valve positions in chilled water loop.",
+    "Adjust balancing valves if flow is >10% below design."
+  ],
+  "cost_escalation": {
+    "daily_energy_excess_inr": 73.48,
+    "weekly_energy_excess_inr": 514.35,
+    "repair_cost_now_inr": 75000,
+    "repair_cost_if_ignored_1week_inr": 135000,
+    "repair_cost_if_ignored_2weeks_inr": 240000,
+    "repair_cost_if_ignored_4weeks_inr": 420000,
+    "emergency_cost_inr": 74000,
+    "cost_per_day_delay_inr": 8644.91,
+    "source": "ASHRAE Std 180 + DOE ORNL/TM-2004/158 + Carrier India field data"
+  },
+  "sensor_snapshot": {
+    "suction_pressure_bar": 4.3362,
+    "discharge_pressure_bar": 11.0895,
+    "coil_delta_T_C": 8.1517,
+    "superheat_C": 5.2441,
+    "subcooling_C": 4.6172,
+    "chilled_water_flow_LPS": 41.4193,
+    "chilled_water_delta_T_C": 8.503,
+    "blower_current_A": 12.6441,
+    "compressor_current_A": 36.6539,
+    "supply_air_temp_C": 14.1695,
+    "return_air_temp_C": 26.4275,
+    "ambient_temp_C": 28.2048,
+    "compressor_runtime_pct": 74.3855
+  },
+  "z_score_snapshot": {
+    "suction_pressure_bar": 0.0,
+    "discharge_pressure_bar": 0.0,
+    "coil_delta_T_C": 0.0,
+    "superheat_C": 0.0,
+    "subcooling_C": 0.0,
+    "chilled_water_flow_LPS": 0.0,
+    "chilled_water_delta_T_C": 0.0,
+    "blower_current_A": 0.0,
+    "compressor_current_A": 0.0,
+    "supply_air_temp_C": 0.0,
+    "return_air_temp_C": 0.0,
+    "ambient_temp_C": 0.0,
+    "compressor_runtime_pct": 0.0
+  },
+  "layer1_result": {
+    "flagged_sensors": [
+      "discharge_pressure_bar",
+      "subcooling_C",
+      "chilled_water_flow_LPS",
+      "chilled_water_delta_T_C",
+      "compressor_current_A",
+      "supply_air_temp_C",
+      "return_air_temp_C",
+      "ambient_temp_C",
+      "compressor_runtime_pct"
+    ],
+    "max_z_score": 10.2817,
+    "worst_severity": "IMMINENT_FAILURE"
+  },
+  "layer2_result": {
+    "anomaly_pct": 31.67,
+    "confirmed": true
+  },
+  "created_at": "2026-05-14T17:08:10.829969",
+  "updated_at": "2026-05-14T17:08:10.829969",
+  "last_anomaly_score": 31.67
+}

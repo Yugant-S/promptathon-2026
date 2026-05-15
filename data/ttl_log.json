@@ -1,0 +1,642 @@
+{
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch001_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.712517",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:36.712517",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch002_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.754798",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:36.754798",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch003_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.790443",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:36.790443",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:49.765724"
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch004_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.834901",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:36.834901",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:50.963447"
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch005_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.877461",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:36.877461",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:52.291274"
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch006_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:36.954840",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:36.954840",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:52.852004"
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch007_20260514_170736.parquet": {
+    "created_at": "2026-05-14T17:07:37.045966",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:37.045966",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:53.595323"
+  },
+  "data\\raw\\CARRIER-30XA-01\\low_refrigerant\\CARRIER-30XA-01_batch008_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.153806",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:37.153806",
+    "extended": true,
+    "extended_at": "2026-05-14T17:07:56.849824"
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch001_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.280744",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.280744",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch002_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.349181",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.349181",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch003_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.415198",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.415198",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch004_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.480343",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.480343",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch005_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.544910",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:37.544910",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:01.743798"
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch006_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.618869",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.618869",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch007_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.692818",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.692818",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-02\\dirty_coil\\CARRIER-30XA-02_batch008_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.771095",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.771095",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch001_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.840607",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.840607",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch002_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.916936",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.916936",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch003_20260514_170737.parquet": {
+    "created_at": "2026-05-14T17:07:37.983339",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:37.983339",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch004_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.055014",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.055014",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch005_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.126412",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.126412",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch006_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.199735",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.199735",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch007_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.273874",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.273874",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-03\\normal\\CARRIER-30XA-03_batch008_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.335697",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.335697",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch001_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.402474",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:38.402474",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:07.029151"
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch002_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.477370",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.477370",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch003_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.546523",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:38.546523",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:07.619721"
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch004_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.623286",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.623286",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch005_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.695095",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:38.695095",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:08.225938"
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch006_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.773935",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:38.773935",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:08.535307"
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch007_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.845217",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.845217",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-04\\exv_malfunction\\CARRIER-30XA-04_batch008_20260514_170738.parquet": {
+    "created_at": "2026-05-14T17:07:38.976258",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:38.976258",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch001_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.056866",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.056866",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch002_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.135797",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.135797",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch003_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.233131",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.233131",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch004_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.308249",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.308249",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch005_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.400096",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.400096",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch006_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.488681",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:39.488681",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:10.814288"
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch007_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.581128",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.581128",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-05\\low_chilled_water\\CARRIER-30XA-05_batch008_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.665566",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.665566",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch001_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.743943",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.743943",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch002_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.829434",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.829434",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch003_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.905099",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:39.905099",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch004_20260514_170739.parquet": {
+    "created_at": "2026-05-14T17:07:39.977244",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:39.977244",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:12.623236"
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch005_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.065447",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:40.065447",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:12.867416"
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch006_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.205578",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:40.205578",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:13.163991"
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch007_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.289446",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:40.289446",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:13.484361"
+  },
+  "data\\raw\\CARRIER-30XA-06\\condenser_issue\\CARRIER-30XA-06_batch008_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.359456",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:40.359456",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:13.856734"
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch001_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.420297",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.420297",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch002_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.509582",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.509582",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch003_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.604765",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.604765",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch004_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.703137",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.703137",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch005_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.783552",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.783552",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch006_20260514_170740.parquet": {
+    "created_at": "2026-05-14T17:07:40.884843",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:40.884843",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch007_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.123036",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:41.123036",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-07\\normal\\CARRIER-30XA-07_batch008_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.213270",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:41.213270",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch001_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.286969",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:41.286969",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch002_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.373170",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.373170",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:16.811809"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch003_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.458136",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.458136",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:17.122633"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch004_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.528364",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.528364",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:17.470682"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch005_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.602115",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.602115",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:17.853003"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch006_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.661845",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.661845",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:18.208033"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch007_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.752472",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.752472",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:18.649289"
+  },
+  "data\\raw\\CARRIER-30XA-08\\multi_fault\\CARRIER-30XA-08_batch008_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.868163",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:41.868163",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:19.030651"
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch001_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.929695",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:41.929695",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch002_20260514_170741.parquet": {
+    "created_at": "2026-05-14T17:07:41.988869",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:41.988869",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch003_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.068467",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.068467",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch004_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.393057",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.393057",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch005_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.549477",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.549477",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch006_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.738930",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.738930",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch007_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.865701",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.865701",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-09\\normal\\CARRIER-30XA-09_batch008_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:42.952081",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:42.952081",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch001_20260514_170742.parquet": {
+    "created_at": "2026-05-14T17:07:43.029530",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:43.029530",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch002_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.101031",
+    "worst_severity": "NORMAL",
+    "ttl_days": 2,
+    "expires_at": "2026-05-16T17:07:43.101031",
+    "extended": false,
+    "extended_at": null
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch003_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.178181",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.178181",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:23.176682"
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch004_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.272695",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.272695",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:23.482851"
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch005_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.392000",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.392000",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:23.783457"
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch006_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.507441",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.507441",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:24.062711"
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch007_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.601214",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.601214",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:24.366866"
+  },
+  "data\\raw\\CARRIER-30XA-10\\low_refrigerant\\CARRIER-30XA-10_batch008_20260514_170743.parquet": {
+    "created_at": "2026-05-14T17:07:43.689952",
+    "worst_severity": "IMMINENT_FAILURE",
+    "ttl_days": 90,
+    "expires_at": "2026-08-12T17:07:43.689952",
+    "extended": true,
+    "extended_at": "2026-05-14T17:08:24.725829"
+  }
+}

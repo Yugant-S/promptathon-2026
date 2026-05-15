@@ -1,0 +1,95 @@
+{
+  "ticket_id": "TKT-CARRIER-30XA-04-202605141708-0D7E1A",
+  "unit_id": "CARRIER-30XA-04",
+  "incident_type": "THERMAL_EXV_MALFUNCTION",
+  "generated_at": "2026-05-14T17:08:08.239198",
+  "status": "OPEN",
+  "severity": "IMMINENT_FAILURE",
+  "mapped_severity": "CRITICAL",
+  "urgency": {
+    "hours": 48,
+    "display": "2 days",
+    "urgency_band": "CRITICAL",
+    "message": "Failure approaching within days. Dispatch technician immediately. Production risk if unaddressed."
+  },
+  "freeze_risk_pct": 5.36,
+  "dominant_cause": "exv_malfunction",
+  "cause_scores": {
+    "low_refrigerant": 1.15,
+    "dirty_coil": 5.32,
+    "exv_malfunction": 19.86,
+    "low_chilled_water": 4.44,
+    "condenser_issue": 0.53
+  },
+  "action_plan": [
+    "IMMEDIATE: Consider unit shutdown to prevent damage.",
+    "Check EXV wiring harness for loose connections or corrosion.",
+    "Measure superheat at evaporator outlet; target 6 \u00b1 2\u00b0C.",
+    "Run EXV calibration routine via controller service menu.",
+    "If oscillation persists, replace EXV stepper motor assembly."
+  ],
+  "cost_escalation": {
+    "daily_energy_excess_inr": 43.5,
+    "weekly_energy_excess_inr": 304.48,
+    "repair_cost_now_inr": 75000,
+    "repair_cost_if_ignored_1week_inr": 135000,
+    "repair_cost_if_ignored_2weeks_inr": 240000,
+    "repair_cost_if_ignored_4weeks_inr": 420000,
+    "emergency_cost_inr": 74000,
+    "cost_per_day_delay_inr": 8614.93,
+    "source": "ASHRAE Std 180 + DOE ORNL/TM-2004/158 + Carrier India field data"
+  },
+  "sensor_snapshot": {
+    "suction_pressure_bar": 4.0632,
+    "discharge_pressure_bar": 11.1084,
+    "coil_delta_T_C": 8.5353,
+    "superheat_C": 6.2182,
+    "subcooling_C": 5.228,
+    "chilled_water_flow_LPS": 52.3367,
+    "chilled_water_delta_T_C": 5.1016,
+    "blower_current_A": 12.66,
+    "compressor_current_A": 35.9818,
+    "supply_air_temp_C": 13.8872,
+    "return_air_temp_C": 24.3042,
+    "ambient_temp_C": 25.7248,
+    "compressor_runtime_pct": 66.9272
+  },
+  "z_score_snapshot": {
+    "suction_pressure_bar": 0.0,
+    "discharge_pressure_bar": 0.0,
+    "coil_delta_T_C": 0.0,
+    "superheat_C": 0.0,
+    "subcooling_C": 0.0,
+    "chilled_water_flow_LPS": 0.0,
+    "chilled_water_delta_T_C": 0.0,
+    "blower_current_A": 0.0,
+    "compressor_current_A": 0.0,
+    "supply_air_temp_C": 0.0,
+    "return_air_temp_C": 0.0,
+    "ambient_temp_C": 0.0,
+    "compressor_runtime_pct": 0.0
+  },
+  "layer1_result": {
+    "flagged_sensors": [
+      "suction_pressure_bar",
+      "coil_delta_T_C",
+      "superheat_C",
+      "chilled_water_flow_LPS",
+      "chilled_water_delta_T_C",
+      "blower_current_A",
+      "compressor_current_A",
+      "return_air_temp_C",
+      "ambient_temp_C",
+      "compressor_runtime_pct"
+    ],
+    "max_z_score": 4.9453,
+    "worst_severity": "IMMINENT_FAILURE"
+  },
+  "layer2_result": {
+    "anomaly_pct": 51.67,
+    "confirmed": true
+  },
+  "created_at": "2026-05-14T17:08:08.239198",
+  "updated_at": "2026-05-14T17:08:08.239198",
+  "last_anomaly_score": 51.67
+}

@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThermalGuard AI — HVAC Predictive Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-void:     #050709;
+  --bg-panel:    #0a0d12;
+  --bg-card:     #0f1318;
+  --bg-card2:    #141920;
+  --bg-border:   #1c2430;
+  --bg-hover:    #1a2130;
+  --accent-red:  #ff2d2d;
+  --accent-orange: #ff6a00;
+  --accent-amber: #ffaa00;
+  --accent-green: #00e676;
+  --accent-cyan:  #00e5ff;
+  --accent-blue:  #2979ff;
+  --accent-purple: #7c4dff;
+  --text-primary: #e8edf5;
+  --text-secondary: #7a8899;
+  --text-muted:   #3d4d5c;
+  --glow-red:    0 0 20px rgba(255,45,45,0.4);
+  --glow-orange: 0 0 20px rgba(255,106,0,0.4);
+  --glow-green:  0 0 20px rgba(0,230,118,0.3);
+  --glow-cyan:   0 0 20px rgba(0,229,255,0.3);
+  --font-display: 'Rajdhani', sans-serif;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-body:    'Exo 2', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-void);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND GRID */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5,7,9,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--bg-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 58px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #ff2d2d, #ff6a00);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--glow-red);
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #e8edf5, #00e5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  margin-top: 2px;
+}
+
+.topbar-center {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-btn {
+  padding: 6px 18px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: var(--bg-card2);
+  border-color: var(--bg-border);
+  color: var(--text-primary);
+}
+
+.nav-btn.active {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0,229,255,0.15);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,230,118,0.1);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-green);
+  letter-spacing: 1px;
+}
+
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: pulse-green 1.5s infinite;
+}
+
+@keyframes pulse-green {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,230,118,0.6); }
+  50% { box-shadow: 0 0 0 5px rgba(0,230,118,0); }
+}
+
+.clock {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  position: relative;
+  z-index: 1;
+  padding: 20px 24px 40px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ── SECTION HEADER ── */
+.section-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.section-hd-line {
+  width: 3px;
+  height: 20px;
+  background: linear-gradient(180deg, var(--accent-cyan), transparent);
+  border-radius: 2px;
+}
+
+.section-hd h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.section-hd span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* ── SUMMARY BAR ── */
+.summary-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.stat-card.red::before   { background: linear-gradient(90deg, var(--accent-red), transparent); }
+.stat-card.orange::before { background: linear-gradient(90deg, var(--accent-orange), transparent); }
+.stat-card.green::before  { background: linear-gradient(90deg, var(--accent-green), transparent); }
+.stat-card.cyan::before   { background: linear-gradient(90deg, var(--accent-cyan), transparent); }
+
+.stat-card:hover { transform: translateY(-2px); border-color: #2a3545; }
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-value.red    { color: var(--accent-red); }
+.stat-value.orange { color: var(--accent-orange); }
+.stat-value.green  { color: var(--accent-green); }
+.stat-value.cyan   { color: var(--accent-cyan); }
+
+.stat-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── UNIT CARDS ── */
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.unit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-border);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.unit-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
+.unit-card.critical::after { box-shadow: inset 0 0 30px rgba(255,45,45,0.08); opacity: 1; }
+.unit-card.warning::after  { box-shadow: inset 0 0 30px rgba(255,170,0,0.08); opacity: 1; }
+
+.unit-card:hover { transform: translateY(-3px); border-color: #2a3545; }
+.unit-card.selected { border-color: var(--accent-cyan); box-shadow: var(--glow-cyan); }
+
+.unit-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.unit-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+}
+
+.unit-type {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.sev-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sev-badge.CRITICAL, .sev-badge.IMMINENT_FAILURE {
+  background: rgba(255,45,45,0.15);
+  border: 1px solid rgba(255,45,45,0.4);
+  color: var(--accent-red);
+}
+
+.sev-badge.WARNING {
+  background: rgba(255,170,0,0.15);
+  border: 1px solid rgba(255,170,0,0.4);
+  color: var(--accent-amber);
+}
+
+.sev-badge.NORMAL, .sev-badge.LOW {
+  background: rgba(0,230,118,0.1);
+  border: 1px solid rgba(0,230,118,0.3);
+  color: var(--accent-green);
+}
+
+.unit-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.metric-item label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.metric-item .val {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.metric-item .val.danger  { color: var(--accent-red); }
+.metric-item .val.warn    { color: var(--accent-amber); }
+.metric-item .val.ok      { color: var(--accent-green); }
+.metric-item .val.info    { color: var(--accent-cyan); }
+
+/* Mini risk bar */
+.risk-bar-wrap {
+  margin-top: 12px;
+}
+
+.risk-bar-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.risk-bar-track {
+  height: 4px;
+  background: var(--bg-card2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  display: none;
+  grid-column: 1 / -1;
+  background: var(--bg-panel);
+  border: 1px solid var(--bg-border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 4px;
+  animation: slideDown 0.3s ease;
+}
+
+.detail-panel.open { display: block; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+
+/* Circular Risk Meter */
+.risk-meter-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.risk-meter {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.risk-meter svg { transform: rotate(-90deg); }
+
+.risk-arc-bg {
+  fill: none;
+  stroke: var(--bg-card2);
+  stroke-width: 14;
+}
+
+.risk-arc-fill {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.risk-center-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.risk-pct {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.risk-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.risk-verdict {
+  text-align: center;
+}
+
+.risk-verdict h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.risk-verdict p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 260px;
+  text-align: center;
+}
+
+/* Causes list */
+.causes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cause-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 60px 52px;
+  align-items: center;
+  gap: 10px;
+}
+
+.cause-icon {
+  font-size: 16px;
+  text-align: center;
+}
+
+.cause-info .name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cause-info .desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.cause-bar-track {
+  height: 5px;
+  background: var(--bg-card2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cause-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.9s ease;
+}
+
+.cause-pct {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Sensor grid */
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.sensor-card {
+  background: var(--bg-card2);
+  border: 1px solid var(--bg-border);
+  border-radius: 10px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sensor-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.sensor-card.NORMAL::before  { background: var(--accent-green); }
+.sensor-card.WARNING::before { background: var(--accent-amber); }
+.sensor-card.CRITICAL::before { background: var(--accent-red); }
+
+.sensor-name {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.sensor-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sensor-value .unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.sensor-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+
+.sensor-status.NORMAL  { background: rgba(0,230,118,0.12); color: var(--accent-green); border: 1px solid rgba(0,230,118,0.2); }
+.sensor-status.WARNING { background: rgba(255,170,0,0.12); color: var(--accent-amber); border: 1px solid rgba(255,170,0,0.2); }
+.sensor-status.CRITICAL { background: rgba(255,45,45,0.12); color: var(--accent-red); border: 1px solid rgba(255,45,45,0.2); }
+
+/* Action Plan */
+.action-list {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.action-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--bg-card2);
+  border: 1px solid var(--bg-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.action-list li::before {
+  content: attr(data-n);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-cyan);
+  background: rgba(0,229,255,0.1);
+  border-radius: 4px;
+  padding: 1px 6px;
+  min-width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── TICKETS SECTION ── */
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+}
+
+.tickets-table th {
+  background: var(--bg-card2);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-align: left;
+  font-weight: 400;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--bg-border);
+}
+
+.tickets-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(28,36,48,0.6);
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.tickets-table tr:last-child td { border-bottom: none; }
+.tickets-table tr:hover td { background: rgba(26,33,48,0.5); }
+
+.ticket-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+
+.ticket-unit {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ticket-cause {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.sla-bar {
+  margin-top: 4px;
+}
+
+.sla-track {
+  height: 3px;
+  background: var(--bg-card2);
+  border-radius: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.sla-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.engineer-tag {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eng-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+.eng-spec { font-size: 11px; color: var(--text-muted); }
+
+.escalation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.escalation-badge.L3 {
+  background: rgba(255,45,45,0.12);
+  border: 1px solid rgba(255,45,45,0.3);
+  color: var(--accent-red);
+}
+
+.escalation-badge.L2 {
+  background: rgba(255,170,0,0.12);
+  border: 1px solid rgba(255,170,0,0.3);
+  color: var(--accent-amber);
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.status-pill.OPEN {
+  background: rgba(255,45,45,0.12);
+  color: var(--accent-red);
+  border: 1px solid rgba(255,45,45,0.3);
+}
+
+.status-pill.IN_PROGRESS {
+  background: rgba(41,121,255,0.12);
+  color: var(--accent-blue);
+  border: 1px solid rgba(41,121,255,0.3);
+}
+
+/* ── ALERTS ── */
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.alert-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+
+.alert-item.CRITICAL::before { background: var(--accent-red); box-shadow: var(--glow-red); }
+.alert-item.HIGH::before     { background: var(--accent-orange); }
+.alert-item.MEDIUM::before   { background: var(--accent-amber); }
+
+.alert-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+}
+
+.alert-body { flex: 1; }
+.alert-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.alert-detail { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.alert-time { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+.ack-btn {
+  padding: 5px 14px;
+  background: transparent;
+  border: 1px solid var(--bg-border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.ack-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.ack-btn.acked { border-color: var(--accent-green); color: var(--accent-green); }
+
+/* ── CHARTS ── */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.chart-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.chart-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 200px;
+}
+
+/* ── COST CARD ── */
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cost-item {
+  background: var(--bg-card2);
+  border: 1px solid var(--bg-border);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.cost-item label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.cost-item .cost-val {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-amber);
+}
+
+.cost-item .cost-val.danger { color: var(--accent-red); }
+.cost-item .cost-val.ok     { color: var(--accent-green); }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bg-border);
+  padding-bottom: 0;
+}
+
+.tab {
+  padding: 8px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+
+.tab:hover { color: var(--text-secondary); }
+.tab.active { color: var(--accent-cyan); border-bottom-color: var(--accent-cyan); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LOADING ── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-void);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.5s;
+}
+
+.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.loader-ring {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-border);
+  border-top-color: var(--accent-cyan);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--bg-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a3545; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .topbar-center { display: none; }
+  .charts-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .units-grid { grid-template-columns: 1fr; }
+}
+
+/* Fade-in animation for sections */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Glow pulse for critical cards */
+@keyframes criticalPulse {
+  0%,100% { border-color: rgba(255,45,45,0.3); }
+  50%     { border-color: rgba(255,45,45,0.7); }
+}
+
+.unit-card.critical-pulse {
+  animation: criticalPulse 2s infinite;
+}
+
+/* ── DRAWER & TOAST ── */
+.ticket-drawer {
+  position: fixed;
+  top: 58px; right: -450px;
+  width: 400px; bottom: 0;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--bg-border);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  z-index: 200;
+  transition: right 0.3s ease;
+  padding: 24px;
+  overflow-y: auto;
+}
+.ticket-drawer.open { right: 0; }
+.drawer-close {
+  position: absolute; top: 20px; right: 20px;
+  background: transparent; border: none;
+  color: var(--text-secondary); font-size: 24px; cursor: pointer;
+  line-height: 1; padding: 0;
+}
+.drawer-close:hover { color: var(--accent-red); }
+
+.toast-container {
+  position: fixed; bottom: 20px; right: 20px;
+  z-index: 1000; display: flex; flex-direction: column; gap: 10px;
+}
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-cyan);
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  box-shadow: var(--glow-cyan);
+  animation: slideInRight 0.3s ease forwards;
+}
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.toast.hide { animation: fadeOutRight 0.3s ease forwards; }
+@keyframes fadeOutRight { to { transform: translateX(100%); opacity: 0; } }
+
+.timeline {
+  border-left: 2px solid var(--bg-border);
+  padding-left: 16px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.timeline-item { position: relative; }
+.timeline-item::before {
+  content: ''; position: absolute;
+  left: -21px; top: 4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+.timeline-time { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+.timeline-msg { font-size: 13px; color: var(--text-primary); margin-top: 2px; }
+
+.form-group { margin-top: 16px; }
+.form-group label { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+.form-control {
+  width: 100%; padding: 8px 12px;
+  background: var(--bg-card2);
+  border: 1px solid var(--bg-border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+.btn-primary {
+  margin-top: 20px; width: 100%; padding: 10px;
+  background: rgba(0,229,255,0.1);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  border-radius: 6px; cursor: pointer;
+  font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--accent-cyan); color: #000; box-shadow: var(--glow-cyan); }
+
+@keyframes blinkText { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.sla-warning-text { animation: blinkText 1.5s infinite; color: var(--accent-red) !important; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loader-ring"></div>
+  <div class="loader-text">INITIALISING ThermalGuard AI</div>
+</div>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <div class="brand">
+    <div class="brand-icon">❄</div>
+    <div>
+      <div class="brand-name">ThermalGuard AI</div>
+      <div class="brand-sub">HVAC PREDICTIVE INTELLIGENCE PLATFORM</div>
+    </div>
+  </div>
+  <div class="topbar-center">
+    <button class="nav-btn active" onclick="showPage('dashboard')">Fleet Dashboard</button>
+    <button class="nav-btn" onclick="showPage('tickets')">Tickets</button>
+    <button class="nav-btn" onclick="showPage('analytics')">Analytics</button>
+    <button class="nav-btn" onclick="showPage('alerts')">Alerts <span id="alertBadge" style="display:none;background:var(--accent-red);color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:4px;"></span></button>
+  </div>
+  <div class="topbar-right">
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</nav>
+
+<!-- PAGES -->
+<div class="main">
+
+  <!-- ═══════════════ DASHBOARD PAGE ═══════════════ -->
+  <div id="page-dashboard" class="fade-in">
+
+    <!-- Summary Bar -->
+    <div class="summary-bar" id="summaryBar">
+      <div class="stat-card red">
+        <div class="stat-label">Critical Units</div>
+        <div class="stat-value red" id="statCritical">—</div>
+        <div class="stat-sub">Immediate action required</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-label">Active Tickets</div>
+        <div class="stat-value orange" id="statTickets">—</div>
+        <div class="stat-sub">Open incidents</div>
+      </div>
+      <div class="stat-card cyan">
+        <div class="stat-label">Fleet Units</div>
+        <div class="stat-value cyan" id="statTotal">—</div>
+        <div class="stat-sub">Monitored units</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Normal</div>
+        <div class="stat-value green" id="statNormal">—</div>
+        <div class="stat-sub">Operating nominally</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-label">Daily Loss</div>
+        <div class="stat-value orange" id="statLoss">—</div>
+        <div class="stat-sub">Est. cost if unresolved</div>
+      </div>
+    </div>
+
+    <!-- Fleet Units -->
+    <div class="section-hd">
+      <div class="section-hd-line"></div>
+      <h2>Fleet Overview</h2>
+      <span id="fleetTimestamp">Loading...</span>
+    </div>
+    <div class="units-grid" id="unitsGrid">
+      <!-- Injected by JS -->
+    </div>
+    <div class="detail-panel" id="detailPanel"></div>
+
+  </div><!-- /dashboard -->
+
+  <!-- ═══════════════ TICKETS PAGE ═══════════════ -->
+  <div id="page-tickets" style="display:none" class="fade-in">
+    <div class="section-hd">
+      <div class="section-hd-line"></div>
+      <h2>Maintenance Tickets</h2>
+      <span id="ticketsTimestamp"></span>
+    </div>
+
+    <!-- Toolbar -->
+    <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; align-items:center;">
+      <input type="text" id="filterSearch" placeholder="Search Ticket/Unit ID..." style="background:var(--bg-card2);border:1px solid var(--bg-border);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-family:var(--font-mono);font-size:12px;width:200px;">
+      <select id="filterSeverity" style="background:var(--bg-card2);border:1px solid var(--bg-border);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-family:var(--font-mono);font-size:12px;">
+        <option value="">All Severities</option>
+        <option value="CRITICAL">Critical</option>
+        <option value="HIGH">High</option>
+        <option value="MEDIUM">Medium</option>
+      </select>
+      <select id="filterStatus" style="background:var(--bg-card2);border:1px solid var(--bg-border);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-family:var(--font-mono);font-size:12px;">
+        <option value="">All Statuses</option>
+        <option value="OPEN">Open</option>
+        <option value="IN_PROGRESS">In Progress</option>
+        <option value="RESOLVED">Resolved</option>
+      </select>
+      <select id="filterEngineer" style="background:var(--bg-card2);border:1px solid var(--bg-border);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-family:var(--font-mono);font-size:12px;">
+        <option value="">All Engineers</option>
+      </select>
+      <button onclick="exportCSV()" style="margin-left:auto;background:rgba(0,230,118,0.1);border:1px solid var(--accent-green);color:var(--accent-green);padding:8px 16px;border-radius:6px;cursor:pointer;font-family:var(--font-mono);font-size:12px;font-weight:600;transition:all 0.2s;">EXPORT CSV</button>
+    </div>
+
+    <div style="background:var(--bg-card);border:1px solid var(--bg-border);border-radius:14px;overflow:auto;">
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Ticket / Unit</th>
+            <th>Severity</th>
+            <th>Root Cause</th>
+            <th>Assigned Engineer</th>
+            <th>SLA Remaining</th>
+            <th>Anomaly Score</th>
+            <th>Escalation</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ticketsBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ANALYTICS PAGE ═══════════════ -->
+  <div id="page-analytics" style="display:none" class="fade-in">
+    <div class="section-hd">
+      <div class="section-hd-line"></div>
+      <h2>Predictive Analytics</h2>
+      <span>CARRIER 30XA FLEET — TREND ANALYSIS</span>
+    </div>
+
+    <div style="margin-bottom:12px">
+      <label style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-right:10px;">SELECT UNIT:</label>
+      <select id="unitSelector" style="background:var(--bg-card2);border:1px solid var(--bg-border);color:var(--text-primary);padding:6px 14px;border-radius:8px;font-family:var(--font-mono);font-size:12px;cursor:pointer;">
+        <option value="">Loading...</option>
+      </select>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Freeze Probability Trend</div>
+        <div class="chart-sub">24-HOUR ROLLING WINDOW — % RISK</div>
+        <div class="chart-wrap"><canvas id="chartFreeze"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Anomaly Score Timeline</div>
+        <div class="chart-sub">ML DETECTION CONFIDENCE — %</div>
+        <div class="chart-wrap"><canvas id="chartAnomaly"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Pressure Trend</div>
+        <div class="chart-sub">SUCTION vs DISCHARGE — bar</div>
+        <div class="chart-wrap"><canvas id="chartPressure"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Superheat Drift</div>
+        <div class="chart-sub">EVAPORATOR OUTLET — °C</div>
+        <div class="chart-wrap"><canvas id="chartSuperheat"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ALERTS PAGE ═══════════════ -->
+  <div id="page-alerts" style="display:none" class="fade-in">
+    <div class="section-hd">
+      <div class="section-hd-line"></div>
+      <h2>Active Alerts</h2>
+      <span id="alertCount">0 alerts</span>
+    </div>
+    <div class="alerts-list" id="alertsList"></div>
+  </div>
+
+  <!-- ═══════════════ TICKET DRAWER ═══════════════ -->
+  <div class="ticket-drawer" id="ticketDrawer">
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+    <div class="section-hd">
+      <div class="section-hd-line" style="background:var(--accent-cyan)"></div>
+      <h2 id="drawerTicketId">TKT-XXX</h2>
+    </div>
+    
+    <div class="form-group">
+      <label>STATUS WORKFLOW</label>
+      <select class="form-control" id="drawerStatus">
+        <option value="OPEN">OPEN</option>
+        <option value="IN_PROGRESS">IN PROGRESS</option>
+        <option value="RESOLVED">RESOLVED</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>ASSIGNED ENGINEER</label>
+      <select class="form-control" id="drawerEngineer">
+        <option value="">Loading...</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" onclick="saveTicket()">UPDATE TICKET</button>
+
+    <div class="form-group" style="margin-top:30px">
+      <label>ACTIVITY TIMELINE</label>
+      <div class="timeline" id="drawerTimeline">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+const API = '';  // same-origin; change to 'http://localhost:5000' if running separately
+let fleetData = null;
+let ticketsData = null;
+let alertsData = null;
+let selectedUnit = null;
+let charts = {};
+
+// ── CLOCK ──────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('en-IN', { hour12: false });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── API CALLS ──────────────────────────────────────────────────────────────
+async function fetchFleet() {
+  try {
+    const r = await fetch(`${API}/api/fleet`);
+    if (!r.ok) throw new Error('network');
+    return await r.json();
+  } catch {
+    return FALLBACK_FLEET;
+  }
+}
+
+async function fetchTickets() {
+  try {
+    const r = await fetch(`${API}/api/tickets`);
+    if (!r.ok) throw new Error('network');
+    return await r.json();
+  } catch {
+    return FALLBACK_TICKETS;
+  }
+}
+
+async function fetchAlerts() {
+  try {
+    const r = await fetch(`${API}/api/alerts`);
+    if (!r.ok) throw new Error('network');
+    return await r.json();
+  } catch {
+    return FALLBACK_ALERTS;
+  }
+}
+
+async function fetchTrends(unitId) {
+  try {
+    const r = await fetch(`${API}/api/trends/${unitId}`);
+    if (!r.ok) throw new Error('network');
+    return await r.json();
+  } catch {
+    return generateFallbackTrends(unitId);
+  }
+}
+
+// ── PAGE NAV ──────────────────────────────────────────────────────────────
+function showPage(name) {
+  ['dashboard','tickets','analytics','alerts'].forEach(p => {
+    document.getElementById(`page-${p}`).style.display = 'none';
+  });
+  document.getElementById(`page-${name}`).style.display = 'block';
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('active', b.textContent.toLowerCase().includes(name));
+  });
+
+  if (name === 'analytics') {
+    loadAnalyticsPage();
+  }
+}
+
+// ── SEVERITY HELPERS ──────────────────────────────────────────────────────
+function sevColor(sev) {
+  const m = {
+    IMMINENT_FAILURE: '#ff2d2d',
+    CRITICAL: '#ff2d2d',
+    HIGH:     '#ff6a00',
+    WARNING:  '#ffaa00',
+    MEDIUM:   '#ffaa00',
+    LOW:      '#00e676',
+    NORMAL:   '#00e676',
+  };
+  return m[sev] || '#7a8899';
+}
+
+function causeBarColor(idx) {
+  return ['#ff2d2d','#ff6a00','#ffaa00','#00e676','#00e5ff'][idx] || '#7a8899';
+}
+
+function formatINR(n) {
+  if (!n) return '₹0';
+  if (n >= 100000) return `₹${(n/100000).toFixed(1)}L`;
+  if (n >= 1000)   return `₹${Math.round(n/1000)}K`;
+  return `₹${Math.round(n)}`;
+}
+
+// ── RENDER FLEET ──────────────────────────────────────────────────────────
+function renderSummary(summary) {
+  document.getElementById('statCritical').textContent = summary.critical_count || 0;
+  document.getElementById('statTickets').textContent  = summary.critical_count + (summary.warning_count || 0);
+  document.getElementById('statTotal').textContent    = summary.total_units || 0;
+  document.getElementById('statNormal').textContent   = summary.normal_count || 0;
+  const loss = summary.total_daily_loss_inr || 0;
+  document.getElementById('statLoss').textContent = formatINR(loss) + '/day';
+  document.getElementById('fleetTimestamp').textContent = `Updated ${new Date().toLocaleTimeString('en-IN')}`;
+}
+
+function renderUnits(units) {
+  const grid = document.getElementById('unitsGrid');
+  grid.innerHTML = '';
+  units.forEach(u => {
+    const isCritical = ['IMMINENT_FAILURE','CRITICAL'].includes(u.severity);
+    const isWarning  = u.severity === 'WARNING';
+    const riskColor  = sevColor(u.severity);
+    const card = document.createElement('div');
+    card.className = `unit-card ${isCritical ? 'critical critical-pulse' : isWarning ? 'warning' : ''}`;
+    card.dataset.unitId = u.unit_id;
+
+    const urgHrs  = u.urgency_hours || 0;
+    const urgDisp = u.urgency_display || '—';
+    const anomaly = u.anomaly_pct || 0;
+    const cost    = u.cost_per_day || 0;
+
+    card.innerHTML = `
+      <div class="unit-card-top">
+        <div>
+          <div class="unit-name">${u.unit_id.replace('CARRIER-','')}</div>
+          <div class="unit-type">${u.incident_type || 'NORMAL OPERATION'}</div>
+        </div>
+        <div class="sev-badge ${u.severity}">${u.status || u.severity}</div>
+      </div>
+      <div class="unit-metrics">
+        <div class="metric-item">
+          <label>Failure In</label>
+          <div class="val ${isCritical?'danger':isWarning?'warn':'ok'}">${urgDisp}</div>
+        </div>
+        <div class="metric-item">
+          <label>Anomaly</label>
+          <div class="val ${anomaly>70?'danger':anomaly>40?'warn':'ok'}">${anomaly.toFixed(0)}%</div>
+        </div>
+        <div class="metric-item">
+          <label>Cost/Day</label>
+          <div class="val ${cost>5000?'danger':cost>1000?'warn':'ok'}">${formatINR(cost)}</div>
+        </div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-label">
+          <span>Freeze Risk</span>
+          <span style="color:${riskColor}">${u.freeze_risk_pct.toFixed(1)}%</span>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill" style="width:${u.freeze_risk_pct}%;background:${riskColor};"></div>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => toggleDetail(u));
+    grid.appendChild(card);
+  });
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────
+function toggleDetail(unit) {
+  const panel = document.getElementById('detailPanel');
+  const wasSelected = selectedUnit && selectedUnit.unit_id === unit.unit_id;
+
+  document.querySelectorAll('.unit-card').forEach(c => c.classList.remove('selected'));
+
+  if (wasSelected) {
+    panel.classList.remove('open');
+    selectedUnit = null;
+    return;
+  }
+
+  selectedUnit = unit;
+  document.querySelector(`[data-unit-id="${unit.unit_id}"]`)?.classList.add('selected');
+  renderDetail(unit);
+  panel.classList.add('open');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderDetail(u) {
+  const panel = document.getElementById('detailPanel');
+  const freeze = u.freeze_risk_pct || 0;
+  const riskColor = sevColor(u.severity);
+  const circumference = 2 * Math.PI * 78;
+  const offset = circumference - (freeze / 100) * circumference;
+
+  const verdictText = freeze > 60 ? 'Extreme Risk' :
+                      freeze > 30 ? 'High Risk' :
+                      freeze > 15 ? 'Moderate Risk' : 'Elevated Risk';
+
+  const causesHTML = (u.causes || []).map((c, i) => `
+    <div class="cause-row">
+      <div class="cause-icon">${c.icon}</div>
+      <div class="cause-info">
+        <div class="name">${c.label}</div>
+        <div class="desc">${c.desc}</div>
+      </div>
+      <div>
+        <div class="cause-bar-track" style="width:100%">
+          <div class="cause-bar-fill" style="width:${c.pct}%;background:${causeBarColor(i)};"></div>
+        </div>
+      </div>
+      <div class="cause-pct" style="color:${causeBarColor(i)}">${c.pct}%</div>
+    </div>
+  `).join('');
+
+  const sensorsHTML = (u.sensors || []).map(s => `
+    <div class="sensor-card ${s.status}">
+      <div class="sensor-name">${s.label}</div>
+      <div class="sensor-value">${s.value}<span class="unit"> ${s.unit}</span></div>
+      <div class="sensor-status ${s.status}">${s.status}</div>
+    </div>
+  `).join('');
+
+  const actionsHTML = (u.action_plan || []).map((a, i) => `
+    <li data-n="${i+1}">${a}</li>
+  `).join('');
+
+  const cost = u.cost_escalation || {};
+
+  panel.innerHTML = `
+    <div class="section-hd" style="margin-bottom:20px">
+      <div class="section-hd-line" style="background:${riskColor}"></div>
+      <h2>${u.unit_id} — Diagnostic Report</h2>
+      <span>${new Date().toLocaleString('en-IN')}</span>
+    </div>
+
+    <div class="detail-grid">
+      <!-- LEFT: Risk Meter + Causes -->
+      <div>
+        <div class="risk-meter-wrap">
+          <div class="risk-meter">
+            <svg viewBox="0 0 180 180" width="180" height="180">
+              <circle class="risk-arc-bg" cx="90" cy="90" r="78"
+                stroke-dasharray="${circumference}" stroke-dashoffset="0"/>
+              <circle class="risk-arc-fill" cx="90" cy="90" r="78"
+                stroke="${riskColor}"
+                stroke-dasharray="${circumference}"
+                stroke-dashoffset="${offset}"
+                style="filter:drop-shadow(0 0 8px ${riskColor})"/>
+            </svg>
+            <div class="risk-center-text">
+              <div class="risk-pct" style="color:${riskColor}">${freeze.toFixed(1)}%</div>
+              <div class="risk-label">FREEZE RISK</div>
+            </div>
+          </div>
+          <div class="risk-verdict">
+            <h3 style="color:${riskColor}">${verdictText}</h3>
+            <p>${u.causes?.length || 0} upstream causes detected. ${u.causes?.[0]?.label || ''} is the dominant contributor.</p>
+          </div>
+        </div>
+
+        <!-- Cost summary -->
+        ${cost.cost_per_day_delay_inr ? `
+        <div style="margin-top:20px;background:var(--bg-card2);border:1px solid var(--bg-border);border-radius:12px;padding:16px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:2px;margin-bottom:12px;">COST IMPACT</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div><div style="font-size:10px;color:var(--text-muted)">Per Day</div><div style="font-family:var(--font-display);font-size:18px;color:var(--accent-red);">${formatINR(cost.cost_per_day_delay_inr)}</div></div>
+            <div><div style="font-size:10px;color:var(--text-muted)">Fix Now</div><div style="font-family:var(--font-display);font-size:18px;color:var(--accent-green);">${formatINR(cost.repair_cost_now_inr)}</div></div>
+            <div><div style="font-size:10px;color:var(--text-muted)">If 1 Week</div><div style="font-family:var(--font-display);font-size:18px;color:var(--accent-amber);">${formatINR(cost.repair_cost_if_ignored_1week_inr)}</div></div>
+            <div><div style="font-size:10px;color:var(--text-muted)">If 4 Weeks</div><div style="font-family:var(--font-display);font-size:18px;color:var(--accent-red);">${formatINR(cost.repair_cost_if_ignored_4weeks_inr)}</div></div>
+          </div>
+        </div>` : ''}
+      </div>
+
+      <!-- RIGHT: causes + sensors + actions -->
+      <div>
+        <div style="background:var(--bg-card2);border:1px solid var(--bg-border);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:3px;margin-bottom:12px;">FREEZE RISK — BY CAUSE</div>
+          <div class="causes-list">${causesHTML || '<div style="color:var(--text-muted);font-size:12px">No fault causes — unit nominal</div>'}</div>
+        </div>
+
+        <div style="background:var(--bg-card2);border:1px solid var(--bg-border);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:3px;margin-bottom:4px;">LIVE SENSOR READINGS</div>
+          <div class="sensors-grid">${sensorsHTML || '<div style="color:var(--text-muted);font-size:12px">No sensor data</div>'}</div>
+        </div>
+
+        <div style="background:var(--bg-card2);border:1px solid var(--bg-border);border-radius:12px;padding:16px;">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:3px;margin-bottom:8px;">RECOMMENDED ACTION PLAN</div>
+          <ul class="action-list">${actionsHTML}</ul>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── RENDER TICKETS ────────────────────────────────────────────────────────
+function renderTickets(tickets) {
+  // Apply filters
+  const search = document.getElementById('filterSearch')?.value.toLowerCase() || '';
+  const sev = document.getElementById('filterSeverity')?.value || '';
+  const status = document.getElementById('filterStatus')?.value || '';
+  const eng = document.getElementById('filterEngineer')?.value || '';
+
+  const filtered = tickets.filter(t => {
+    if (search && !t.ticket_id.toLowerCase().includes(search) && !t.unit_id.toLowerCase().includes(search)) return false;
+    if (sev && t.severity !== sev) return false;
+    if (status && t.status !== status) return false;
+    if (eng && t.assigned_engineer?.id !== eng) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('ticketsBody');
+  tbody.innerHTML = '';
+  filtered.forEach(t => {
+    const slaTotal = t.sla_hours || 48;
+    const slaLeft  = t.sla_remaining_hours || 0;
+    const isSlaCritical = slaLeft < slaTotal * 0.2;
+    const slaColor = isSlaCritical ? 'var(--accent-red)' :
+                     slaLeft < slaTotal * 0.5 ? 'var(--accent-amber)' : 'var(--accent-green)';
+    const slaPct   = Math.min(100, (slaLeft / slaTotal) * 100);
+
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.onclick = () => openDrawer(t);
+    tr.innerHTML = `
+      <td>
+        <div class="ticket-id">${t.ticket_id}</div>
+        <div class="ticket-unit" style="margin-top:4px">${t.unit_id}</div>
+        <div class="ticket-cause">${t.incident_type}</div>
+      </td>
+      <td><span class="sev-badge ${t.severity}">${t.severity}</span></td>
+      <td>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary)">${t.cause_label || t.dominant_cause}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${t.urgency_message?.substring(0, 70) || ''}…</div>
+      </td>
+      <td>
+        <div class="engineer-tag">
+          <div class="eng-name">${t.assigned_engineer?.name || '—'}</div>
+          <div class="eng-spec">${t.assigned_engineer?.specialization || ''}</div>
+        </div>
+      </td>
+      <td>
+        <div class="${isSlaCritical ? 'sla-warning-text' : ''}" style="font-family:var(--font-mono);font-size:13px;color:${slaColor}">${slaLeft.toFixed(1)}h left</div>
+        <div class="sla-track">
+          <div class="sla-fill" style="width:${slaPct}%;background:${slaColor};"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:3px">SLA: ${slaTotal}h total</div>
+      </td>
+      <td>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:${sevColor(t.severity)}">${(t.anomaly_pct||0).toFixed(0)}%</div>
+        <div style="font-size:10px;color:var(--text-muted)">max-z: ${(t.max_z_score||0).toFixed(2)}</div>
+      </td>
+      <td><span class="escalation-badge ${t.escalation_level}">${t.escalation_level}</span></td>
+      <td><span class="status-pill ${t.status}">${t.status}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('ticketsTimestamp').textContent = `${filtered.length} tickets — ${new Date().toLocaleTimeString('en-IN')}`;
+}
+
+document.getElementById('filterSearch')?.addEventListener('input', () => renderTickets(ticketsData?.tickets || []));
+document.getElementById('filterSeverity')?.addEventListener('change', () => renderTickets(ticketsData?.tickets || []));
+document.getElementById('filterStatus')?.addEventListener('change', () => renderTickets(ticketsData?.tickets || []));
+document.getElementById('filterEngineer')?.addEventListener('change', () => renderTickets(ticketsData?.tickets || []));
+
+function exportCSV() {
+  const search = document.getElementById('filterSearch')?.value.toLowerCase() || '';
+  const sev = document.getElementById('filterSeverity')?.value || '';
+  const status = document.getElementById('filterStatus')?.value || '';
+  const eng = document.getElementById('filterEngineer')?.value || '';
+  const tickets = ticketsData?.tickets || [];
+  const filtered = tickets.filter(t => {
+    if (search && !t.ticket_id.toLowerCase().includes(search) && !t.unit_id.toLowerCase().includes(search)) return false;
+    if (sev && t.severity !== sev) return false;
+    if (status && t.status !== status) return false;
+    if (eng && t.assigned_engineer?.id !== eng) return false;
+    return true;
+  });
+
+  if (!filtered.length) { showToast('No tickets to export', 'error'); return; }
+  
+  const headers = ['Ticket ID', 'Unit ID', 'Severity', 'Status', 'Assigned Engineer', 'SLA Remaining', 'Anomaly %'];
+  const rows = filtered.map(t => [
+    t.ticket_id, t.unit_id, t.severity, t.status, 
+    t.assigned_engineer?.name || 'Unassigned', 
+    t.sla_remaining_hours, t.anomaly_pct
+  ]);
+  
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tickets_export_${Date.now()}.csv`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+// ── RENDER ALERTS ─────────────────────────────────────────────────────────
+function renderAlerts(alerts) {
+  const list = document.getElementById('alertsList');
+  list.innerHTML = '';
+  const count = alerts.length;
+  document.getElementById('alertCount').textContent = `${count} active alert${count!==1?'s':''}`;
+  if (count > 0) {
+    const badge = document.getElementById('alertBadge');
+    badge.textContent = count;
+    badge.style.display = 'inline';
+  }
+
+  alerts.forEach(a => {
+    const div = document.createElement('div');
+    div.className = `alert-item ${a.severity}`;
+    const ts = a.timestamp ? new Date(a.timestamp).toLocaleString('en-IN') : '—';
+    div.innerHTML = `
+      <div class="alert-icon">${a.severity === 'CRITICAL' ? '🔴' : a.severity === 'HIGH' ? '🟠' : '🟡'}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.message}</div>
+        <div class="alert-detail">${a.detail}</div>
+      </div>
+      <div class="alert-time">${ts}</div>
+      <button class="ack-btn" onclick="ackAlert(this)">ACK</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function ackAlert(btn) {
+  btn.textContent = '✓ ACKED';
+  btn.classList.add('acked');
+  btn.closest('.alert-item').style.opacity = '0.5';
+}
+
+// ── ANALYTICS PAGE ────────────────────────────────────────────────────────
+async function loadAnalyticsPage() {
+  // Populate unit selector
+  const sel = document.getElementById('unitSelector');
+  sel.innerHTML = '';
+  if (fleetData) {
+    fleetData.units.filter(u => u.severity !== 'NORMAL').forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.unit_id;
+      opt.textContent = u.unit_id;
+      sel.appendChild(opt);
+    });
+  }
+  sel.onchange = () => loadTrends(sel.value);
+  if (sel.options.length > 0) loadTrends(sel.options[0].value);
+}
+
+async function loadTrends(unitId) {
+  const data = await fetchTrends(unitId);
+  const trends = data.trends || [];
+  const labels = trends.map(t => t.time);
+
+  renderChart('chartFreeze', labels, [{
+    label: 'Freeze Risk %',
+    data: trends.map(t => t.freeze_risk),
+    borderColor: '#ff2d2d',
+    backgroundColor: 'rgba(255,45,45,0.1)',
+    fill: true,
+    tension: 0.4,
+  }]);
+
+  renderChart('chartAnomaly', labels, [{
+    label: 'Anomaly Score',
+    data: trends.map(t => t.anomaly_score),
+    borderColor: '#ff6a00',
+    backgroundColor: 'rgba(255,106,0,0.1)',
+    fill: true,
+    tension: 0.4,
+  }]);
+
+  renderChart('chartPressure', labels, [
+    {
+      label: 'Suction Pressure (bar)',
+      data: trends.map(t => t.suction_pressure),
+      borderColor: '#00e5ff',
+      tension: 0.4,
+    },
+    {
+      label: 'Discharge Pressure (bar)',
+      data: trends.map(t => t.discharge_pressure),
+      borderColor: '#ff2d2d',
+      tension: 0.4,
+    }
+  ]);
+
+  renderChart('chartSuperheat', labels, [{
+    label: 'Superheat (°C)',
+    data: trends.map(t => t.superheat),
+    borderColor: '#ffaa00',
+    backgroundColor: 'rgba(255,170,0,0.08)',
+    fill: true,
+    tension: 0.4,
+  }]);
+}
+
+function renderChart(id, labels, datasets) {
+  if (charts[id]) {
+    charts[id].destroy();
+    delete charts[id];
+  }
+  const ctx = document.getElementById(id)?.getContext('2d');
+  if (!ctx) return;
+  charts[id] = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#7a8899', font: { family: 'Share Tech Mono', size: 10 } } }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#3d4d5c', font: { family: 'Share Tech Mono', size: 10 }, maxTicksLimit: 8 },
+          grid: { color: 'rgba(28,36,48,0.6)' },
+        },
+        y: {
+          ticks: { color: '#3d4d5c', font: { family: 'Share Tech Mono', size: 10 } },
+          grid: { color: 'rgba(28,36,48,0.6)' },
+        }
+      },
+    }
+  });
+}
+
+// ── FALLBACK DATA ─────────────────────────────────────────────────────────
+// Embedded from incident_registry.json — used when API is unavailable
+const FALLBACK_FLEET = {
+  units: [
+    {
+      unit_id: "CARRIER-30XA-01", incident_type: "THERMAL_LOW_REFRIGERANT",
+      status: "Degrading", severity: "IMMINENT_FAILURE", mapped_severity: "CRITICAL",
+      freeze_risk_pct: 13.38, anomaly_pct: 100.0, urgency_hours: 48, urgency_display: "2 days",
+      dominant_cause: "low_refrigerant", cost_per_day: 8941.29,
+      action_plan: [
+        "IMMEDIATE: Consider unit shutdown to prevent damage.",
+        "Connect manifold gauge set; verify suction pressure against P-T chart.",
+        "Inspect all refrigerant circuit joints and service valves for leaks.",
+        "Use electronic leak detector; confirm with UV dye if necessary.",
+        "Recover charge, evacuate to <500 microns, weigh-in factory charge."
+      ],
+      causes: [
+        { key:"low_refrigerant", label:"Low Refrigerant Charge", desc:"Suction pressure below threshold", icon:"❄", pct:42 },
+        { key:"dirty_coil", label:"Dirty Evaporator Coil", desc:"Coil ΔT dropped — fouling detected", icon:"🌫", pct:26 },
+        { key:"exv_malfunction", label:"EXV Malfunction", desc:"Superheat oscillating ±4°C", icon:"⚡", pct:16 },
+        { key:"low_chilled_water", label:"Low Chilled Water Flow", desc:"Flow at 38 LPS", icon:"💧", pct:10 },
+        { key:"condenser_issue", label:"Condenser Heat Rejection", desc:"Discharge pressure borderline", icon:"🔥", pct:6 },
+      ],
+      sensors: [
+        { key:"suction_pressure_bar", label:"Suction Pressure", value:2.41, unit:"bar", status:"CRITICAL" },
+        { key:"discharge_pressure_bar", label:"Discharge Pressure", value:10.84, unit:"bar", status:"NORMAL" },
+        { key:"coil_delta_T_C", label:"Coil ΔT", value:6.67, unit:"°C", status:"WARNING" },
+        { key:"superheat_C", label:"Superheat", value:8.12, unit:"°C", status:"WARNING" },
+        { key:"chilled_water_flow_LPS", label:"Chilled Water Flow", value:53.5, unit:"LPS", status:"WARNING" },
+        { key:"compressor_current_A", label:"Compressor Current", value:35.9, unit:"A", status:"NORMAL" },
+      ],
+      cost_escalation: { cost_per_day_delay_inr:8941.29, repair_cost_now_inr:75000, repair_cost_if_ignored_1week_inr:135000, repair_cost_if_ignored_4weeks_inr:420000 }
+    },
+    {
+      unit_id: "CARRIER-30XA-04", incident_type: "THERMAL_EXV_MALFUNCTION",
+      status: "Degrading", severity: "IMMINENT_FAILURE", mapped_severity: "CRITICAL",
+      freeze_risk_pct: 6.56, anomaly_pct: 51.67, urgency_hours: 48, urgency_display: "2 days",
+      dominant_cause: "exv_malfunction", cost_per_day: 8624.87,
+      action_plan: [
+        "IMMEDIATE: Consider unit shutdown to prevent damage.",
+        "Check EXV wiring harness for loose connections or corrosion.",
+        "Measure superheat at evaporator outlet; target 6 ±2°C.",
+        "Run EXV calibration routine via controller service menu.",
+        "If oscillation persists, replace EXV stepper motor assembly."
+      ],
+      causes: [
+        { key:"exv_malfunction", label:"EXV Malfunction", desc:"Superheat oscillating ±4°C", icon:"⚡", pct:38 },
+        { key:"low_refrigerant", label:"Low Refrigerant Charge", desc:"Suction pressure below threshold", icon:"❄", pct:28 },
+        { key:"dirty_coil", label:"Dirty Evaporator Coil", desc:"Coil ΔT dropped", icon:"🌫", pct:18 },
+        { key:"low_chilled_water", label:"Low Chilled Water Flow", desc:"Flow at 38 LPS", icon:"💧", pct:10 },
+        { key:"condenser_issue", label:"Condenser Heat Rejection", desc:"Discharge pressure borderline", icon:"🔥", pct:6 },
+      ],
+      sensors: [
+        { key:"suction_pressure_bar", label:"Suction Pressure", value:4.30, unit:"bar", status:"NORMAL" },
+        { key:"discharge_pressure_bar", label:"Discharge Pressure", value:10.90, unit:"bar", status:"NORMAL" },
+        { key:"superheat_C", label:"Superheat", value:5.42, unit:"°C", status:"WARNING" },
+        { key:"compressor_current_A", label:"Compressor Current", value:38.6, unit:"A", status:"NORMAL" },
+      ],
+      cost_escalation: { cost_per_day_delay_inr:8624.87, repair_cost_now_inr:75000, repair_cost_if_ignored_1week_inr:135000, repair_cost_if_ignored_4weeks_inr:420000 }
+    },
+    {
+      unit_id: "CARRIER-30XA-06", incident_type: "THERMAL_CONDENSER_ISSUE",
+      status: "Degrading", severity: "IMMINENT_FAILURE", mapped_severity: "CRITICAL",
+      freeze_risk_pct: 3.17, anomaly_pct: 100.0, urgency_hours: 48, urgency_display: "2 days",
+      dominant_cause: "condenser_issue", cost_per_day: 8616.91,
+      action_plan: [
+        "IMMEDIATE: Consider unit shutdown to prevent damage.",
+        "Inspect condenser fins for fouling or physical damage.",
+        "Verify all condenser fans are rotating in correct direction.",
+        "Check head pressure vs ambient temperature correlation.",
+        "Clean condenser coil with low-pressure water (max 2 bar)."
+      ],
+      causes: [
+        { key:"condenser_issue", label:"Condenser Heat Rejection", desc:"Discharge pressure 14.5 bar — critical", icon:"🔥", pct:36 },
+        { key:"low_refrigerant", label:"Low Refrigerant Charge", desc:"Suction pressure below threshold", icon:"❄", pct:26 },
+        { key:"dirty_coil", label:"Dirty Evaporator Coil", desc:"Coil ΔT dropped", icon:"🌫", pct:18 },
+        { key:"exv_malfunction", label:"EXV Malfunction", desc:"Superheat oscillating", icon:"⚡", pct:12 },
+        { key:"low_chilled_water", label:"Low Chilled Water Flow", desc:"Flow at 38 LPS", icon:"💧", pct:8 },
+      ],
+      sensors: [
+        { key:"suction_pressure_bar", label:"Suction Pressure", value:4.03, unit:"bar", status:"NORMAL" },
+        { key:"discharge_pressure_bar", label:"Discharge Pressure", value:14.50, unit:"bar", status:"CRITICAL" },
+        { key:"compressor_current_A", label:"Compressor Current", value:54.3, unit:"A", status:"CRITICAL" },
+        { key:"superheat_C", label:"Superheat", value:5.74, unit:"°C", status:"WARNING" },
+      ],
+      cost_escalation: { cost_per_day_delay_inr:8616.91, repair_cost_now_inr:75000, repair_cost_if_ignored_1week_inr:135000, repair_cost_if_ignored_4weeks_inr:420000 }
+    },
+    {
+      unit_id: "CARRIER-30XA-08", incident_type: "THERMAL_LOW_REFRIGERANT",
+      status: "Degrading", severity: "IMMINENT_FAILURE", mapped_severity: "CRITICAL",
+      freeze_risk_pct: 17.7, anomaly_pct: 90.0, urgency_hours: 48, urgency_display: "2 days",
+      dominant_cause: "low_refrigerant", cost_per_day: 9200,
+      action_plan: [
+        "IMMEDIATE: Consider unit shutdown to prevent damage.",
+        "Connect manifold gauge set; verify suction pressure against P-T chart.",
+        "Inspect all refrigerant circuit joints and service valves for leaks.",
+      ],
+      causes: [
+        { key:"low_refrigerant", label:"Low Refrigerant Charge", desc:"Suction 2.07 bar — critically low", icon:"❄", pct:45 },
+        { key:"dirty_coil", label:"Dirty Evaporator Coil", desc:"Coil ΔT 5.9°C — below normal", icon:"🌫", pct:27 },
+        { key:"exv_malfunction", label:"EXV Malfunction", desc:"Superheat oscillating", icon:"⚡", pct:14 },
+        { key:"low_chilled_water", label:"Low Chilled Water Flow", desc:"Flow at 55.7 LPS", icon:"💧", pct:9 },
+        { key:"condenser_issue", label:"Condenser Heat Rejection", desc:"Discharge borderline", icon:"🔥", pct:5 },
+      ],
+      sensors: [
+        { key:"suction_pressure_bar", label:"Suction Pressure", value:2.07, unit:"bar", status:"CRITICAL" },
+        { key:"discharge_pressure_bar", label:"Discharge Pressure", value:10.68, unit:"bar", status:"NORMAL" },
+        { key:"coil_delta_T_C", label:"Coil ΔT", value:5.90, unit:"°C", status:"CRITICAL" },
+        { key:"compressor_current_A", label:"Compressor Current", value:36.5, unit:"A", status:"NORMAL" },
+      ],
+      cost_escalation: { cost_per_day_delay_inr:9200, repair_cost_now_inr:75000, repair_cost_if_ignored_1week_inr:135000, repair_cost_if_ignored_4weeks_inr:420000 }
+    },
+    {
+      unit_id: "CARRIER-30XA-10", incident_type: "THERMAL_LOW_REFRIGERANT",
+      status: "Degrading", severity: "IMMINENT_FAILURE", mapped_severity: "CRITICAL",
+      freeze_risk_pct: 13.38, anomaly_pct: 80.0, urgency_hours: 48, urgency_display: "2 days",
+      dominant_cause: "low_refrigerant", cost_per_day: 8941,
+      action_plan: [
+        "IMMEDIATE: Consider unit shutdown to prevent damage.",
+        "Connect manifold gauge set; verify suction pressure against P-T chart.",
+        "Inspect all refrigerant circuit joints and service valves for leaks.",
+      ],
+      causes: [
+        { key:"low_refrigerant", label:"Low Refrigerant Charge", desc:"Suction pressure below threshold", icon:"❄", pct:42 },
+        { key:"dirty_coil", label:"Dirty Evaporator Coil", desc:"Coil ΔT dropped", icon:"🌫", pct:26 },
+        { key:"exv_malfunction", label:"EXV Malfunction", desc:"Superheat oscillating", icon:"⚡", pct:16 },
+        { key:"low_chilled_water", label:"Low Chilled Water Flow", desc:"Flow at 53 LPS", icon:"💧", pct:10 },
+        { key:"condenser_issue", label:"Condenser Heat Rejection", desc:"Discharge borderline", icon:"🔥", pct:6 },
+      ],
+      sensors: [
+        { key:"suction_pressure_bar", label:"Suction Pressure", value:2.41, unit:"bar", status:"CRITICAL" },
+        { key:"discharge_pressure_bar", label:"Discharge Pressure", value:10.84, unit:"bar", status:"NORMAL" },
+        { key:"superheat_C", label:"Superheat", value:8.12, unit:"°C", status:"WARNING" },
+        { key:"compressor_current_A", label:"Compressor Current", value:35.9, unit:"A", status:"NORMAL" },
+      ],
+      cost_escalation: { cost_per_day_delay_inr:8941, repair_cost_now_inr:75000, repair_cost_if_ignored_1week_inr:135000, repair_cost_if_ignored_4weeks_inr:420000 }
+    },
+    { unit_id:"CARRIER-30XA-03", incident_type:"NORMAL", status:"Nominal", severity:"NORMAL", freeze_risk_pct:5.2, anomaly_pct:8, urgency_hours:720, urgency_display:"30 days", dominant_cause:null, cost_per_day:0, action_plan:["No action required."], causes:[], sensors:[], cost_escalation:{} },
+    { unit_id:"CARRIER-30XA-07", incident_type:"NORMAL", status:"Nominal", severity:"NORMAL", freeze_risk_pct:3.8, anomaly_pct:6, urgency_hours:720, urgency_display:"30 days", dominant_cause:null, cost_per_day:0, action_plan:["No action required."], causes:[], sensors:[], cost_escalation:{} },
+    { unit_id:"CARRIER-30XA-09", incident_type:"NORMAL", status:"Nominal", severity:"NORMAL", freeze_risk_pct:6.1, anomaly_pct:12, urgency_hours:720, urgency_display:"30 days", dominant_cause:null, cost_per_day:0, action_plan:["No action required."], causes:[], sensors:[], cost_escalation:{} },
+  ],
+  summary: { total_units:8, critical_count:5, warning_count:0, normal_count:3, total_daily_loss_inr:44323 }
+};
+
+const FALLBACK_TICKETS = {
+  tickets: FALLBACK_FLEET.units.filter(u=>u.severity!=='NORMAL').map((u,i) => ({
+    ticket_id: `TKT-${u.unit_id}-202605141255`,
+    unit_id: u.unit_id,
+    incident_type: u.incident_type,
+    status: 'OPEN',
+    severity: u.mapped_severity || 'CRITICAL',
+    urgency_band: 'CRITICAL',
+    urgency_message: 'Failure approaching within days. Dispatch technician immediately.',
+    freeze_risk_pct: u.freeze_risk_pct,
+    dominant_cause: u.dominant_cause,
+    cause_label: u.causes?.[0]?.label || u.dominant_cause,
+    action_plan: u.action_plan,
+    assigned_engineer: [
+      {id:'ENG-001',name:'Rajesh Sharma',specialization:'Refrigeration Systems'},
+      {id:'ENG-002',name:'Priya Mehta',specialization:'Electrical & Controls'},
+      {id:'ENG-003',name:'Anil Patel',specialization:'Mechanical / HVAC'},
+      {id:'ENG-004',name:'Sunita Rao',specialization:'Condenser & Heat Transfer'},
+      {id:'ENG-005',name:'Vikram Nair',specialization:'Chilled Water Systems'},
+    ][i % 5],
+    sla_hours: 4,
+    sla_remaining_hours: 2.5 - i*0.3,
+    anomaly_pct: u.anomaly_pct,
+    max_z_score: 5.5,
+    escalation_level: 'L3',
+    cost_per_day: u.cost_per_day,
+    generated_at: new Date().toISOString(),
+  })),
+  count: 5
+};
+
+const FALLBACK_ALERTS = {
+  alerts: FALLBACK_FLEET.units.filter(u=>u.severity!=='NORMAL').map(u => ({
+    id: `ALT-${u.unit_id}`,
+    unit_id: u.unit_id,
+    severity: 'CRITICAL',
+    message: `${u.causes?.[0]?.label || u.dominant_cause} detected on ${u.unit_id}`,
+    detail: 'Failure approaching within days. Dispatch technician immediately.',
+    timestamp: new Date().toISOString(),
+    acknowledged: false,
+  }))
+};
+
+function generateFallbackTrends(unitId) {
+  const unit = FALLBACK_FLEET.units.find(u=>u.unit_id===unitId) || FALLBACK_FLEET.units[0];
+  const base_freeze = unit.freeze_risk_pct || 10;
+  const trends = Array.from({length:24}, (_,i) => {
+    const t = new Date(Date.now() - (23-i)*3600000);
+    const hr = t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
+    const noise = (Math.random()-0.5)*2;
+    return {
+      time: hr,
+      freeze_risk: Math.max(0, base_freeze - (23-i)*0.3 + noise),
+      suction_pressure: +(2.4 - (23-i)*0.01 + noise*0.05).toFixed(2),
+      discharge_pressure: +(10.8 + (23-i)*0.02 + noise*0.1).toFixed(2),
+      superheat: +(7.5 + noise*0.3).toFixed(2),
+      anomaly_score: Math.min(100, (unit.anomaly_pct||50) * i/23 + noise),
+    };
+  });
+  return { unit_id: unitId, trends };
+}
+
+// ── PHASE 1 LOGIC ──────────────────────────────────────────────────────────
+let engineersList = [];
+
+async function fetchEngineers() {
+  try {
+    const r = await fetch(`${API}/api/engineers`);
+    if(r.ok) {
+      const data = await r.json();
+      engineersList = data.engineers;
+    }
+  } catch(e) { console.error('Failed to fetch engineers'); }
+}
+
+function openDrawer(t) {
+  document.getElementById('ticketDrawer').classList.add('open');
+  document.getElementById('drawerTicketId').textContent = t.ticket_id;
+  document.getElementById('drawerStatus').value = t.status;
+  
+  const engSelect = document.getElementById('drawerEngineer');
+  engSelect.innerHTML = engineersList.map(e => 
+    `<option value="${e.id}" ${t.assigned_engineer?.id === e.id ? 'selected' : ''}>${e.name} (${e.specialization})</option>`
+  ).join('');
+  
+  const filterEng = document.getElementById('filterEngineer');
+  if (filterEng && filterEng.options.length <= 1) {
+    engineersList.forEach(e => {
+      const opt = document.createElement('option');
+      opt.value = e.id; opt.textContent = e.name;
+      filterEng.appendChild(opt);
+    });
+  }
+
+  document.getElementById('drawerTimeline').innerHTML = `
+    <div class="timeline-item">
+      <div class="timeline-time">${new Date().toLocaleTimeString('en-IN')}</div>
+      <div class="timeline-msg">Ticket viewed by dispatcher</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">${new Date(t.generated_at).toLocaleString('en-IN')}</div>
+      <div class="timeline-msg">Automated ticket generated (${t.incident_type})</div>
+    </div>
+  `;
+}
+
+function closeDrawer() {
+  document.getElementById('ticketDrawer').classList.remove('open');
+}
+
+async function saveTicket() {
+  const tid = document.getElementById('drawerTicketId').textContent;
+  const status = document.getElementById('drawerStatus').value;
+  const engId = document.getElementById('drawerEngineer').value;
+
+  try {
+    const r = await fetch(`${API}/api/tickets/${tid}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, assigned_engineer: engId })
+    });
+    if(r.ok) {
+      showToast('Ticket updated successfully');
+      closeDrawer();
+      // In-memory refresh
+      const tdata = await fetchTickets();
+      ticketsData = tdata;
+      renderTickets(tdata.tickets || []);
+    } else {
+      showToast('Failed to update ticket', 'error');
+    }
+  } catch(e) {
+    showToast('Error updating ticket', 'error');
+  }
+}
+
+function showToast(msg, type='success') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  if(type==='error') t.style.borderColor = 'var(--accent-red)';
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('hide');
+    setTimeout(() => t.remove(), 300);
+  }, 3000);
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────
+async function boot(silent=false) {
+  // Load all data in parallel
+  const [fleet, tickets, alerts, _] = await Promise.all([
+    fetchFleet(),
+    fetchTickets(),
+    fetchAlerts(),
+    fetchEngineers(),
+  ]);
+
+  fleetData   = fleet;
+  ticketsData = tickets;
+  alertsData  = alerts;
+
+  renderSummary(fleet.summary);
+  renderUnits(fleet.units);
+  renderTickets(tickets.tickets || []);
+  renderAlerts(alerts.alerts || []);
+  
+  const filterEng = document.getElementById('filterEngineer');
+  if (filterEng && filterEng.options.length <= 1) {
+    engineersList.forEach(e => {
+      const opt = document.createElement('option');
+      opt.value = e.id; opt.textContent = e.name;
+      filterEng.appendChild(opt);
+    });
+  }
+
+  // Hide loading
+  if (!silent) {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.add('hidden');
+    setTimeout(() => overlay.remove(), 600);
+  }
+}
+
+boot();
+setInterval(() => boot(true), 15000);
+</script>
+</body>
+</html>
